@@ -31,6 +31,7 @@ logger.separator("Validating Options", space=False, border=False)
 logger.start()
 tmdb = TMDbAPIs(args["tmdbapi"])
 logger.info("TMDb Connected Successfully")
+logger.separator("Scraping Stingers", space=False, border=False)
 url = "http://www.mediastinger.com/movies-with-stingers/"
 page_num = 0
 override = {t: i for t, i in YAML(path=os.path.join(base_dir, "tmdb_override.yml"), create=True).items()}
@@ -94,7 +95,7 @@ if [item.a_path for item in Repo(path=".").index.diff(None) if item.a_path.endsw
     with open("README.md", "r") as f:
         readme_data = f.readlines()
 
-    readme_data[1] = f"Last generated at: {datetime.now(UTC).strftime('%B %d, %Y %I:%M %p')} UTC\n"
+    readme_data[2] = f"Last generated at: {datetime.now(UTC).strftime('%B %d, %Y %I:%M %p')} UTC\n"
 
     with open("README.md", "w") as f:
         f.writelines(readme_data)
