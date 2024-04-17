@@ -9,9 +9,7 @@ try:
     import requests
     from git import Repo
     from lxml import html
-    from pmmutils import logging
-    from pmmutils.args import PMMArgs
-    from pmmutils.yaml import YAML
+    from kometautils import KometaArgs, KometaLogger, YAML
     from tmdbapis import TMDbAPIs, TMDbException
 except (ModuleNotFoundError, ImportError):
     print("Requirements Error: Requirements are not installed")
@@ -24,14 +22,14 @@ options = [
 ]
 script_name = "Media Stinger"
 base_dir = os.path.dirname(os.path.abspath(__file__))
-pmmargs = PMMArgs("meisnate12/PMM-Mediastinger", base_dir, options, use_nightly=False)
-logger = logging.PMMLogger(script_name, "stinger", os.path.join(base_dir, "logs"), is_trace=pmmargs["trace"], log_requests=pmmargs["log-requests"])
+args = KometaArgs("Kometa-Team/Mediastingers", base_dir, options, use_nightly=False)
+logger = KometaLogger(script_name, "stinger", os.path.join(base_dir, "logs"), is_trace=args["trace"], log_requests=args["log-requests"])
 logger.screen_width = 175
-logger.secret([pmmargs["tmdbapi"]])
-logger.header(pmmargs, sub=True)
+logger.secret([args["tmdbapi"]])
+logger.header(args, sub=True)
 logger.separator("Validating Options", space=False, border=False)
 logger.start()
-tmdb = TMDbAPIs(os.getenv("TMDBAPI"))
+tmdb = TMDbAPIs(args["tmdbapi"])
 logger.info("TMDb Connected Successfully")
 url = "http://www.mediastinger.com/movies-with-stingers/"
 page_num = 0
