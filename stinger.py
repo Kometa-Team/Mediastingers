@@ -24,7 +24,7 @@ script_name = "Media Stinger"
 base_dir = os.path.dirname(os.path.abspath(__file__))
 args = KometaArgs("Kometa-Team/Mediastingers", base_dir, options, use_nightly=False)
 logger = KometaLogger(script_name, "stinger", os.path.join(base_dir, "logs"), is_trace=args["trace"], log_requests=args["log-requests"])
-logger.screen_width = 175
+logger.screen_width = 160
 logger.secret([args["tmdbapi"]])
 logger.header(args, sub=True)
 logger.separator("Validating Options", space=False, border=False)
