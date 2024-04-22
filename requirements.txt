@@ -2,4 +2,4 @@ GitPython==3.1.43
 lxml==5.2.1
 kometautils==0.3.1
 requests==2.31.0
-tmdbapis==1.2.9
+tmdbapis==1.2.13
