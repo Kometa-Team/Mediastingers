@@ -45,7 +45,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
-          git commit -m "Copyright updated to ${{ steps.date.outputs.year }}" -a
+          git commit -m "Update at ${{ steps.date.outputs.date }} UTC" -a
           git push origin master
 
       - name: Discord Failure Notification
