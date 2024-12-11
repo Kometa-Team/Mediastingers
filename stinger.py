@@ -67,15 +67,19 @@ while url:
                 tmdb_item = tmdb.movie(override[title])
             else:
                 try:
-                    searches = tmdb.movie_search(search_title, year=search_year)
+                    searches = tmdb.movie_search(search_title, primary_release_year=search_year)
                     tmdb_item = searches.results[0]
                 except TMDbException:
                     try:
-                        searches = tmdb.movie_search(search_title)
+                        searches = tmdb.movie_search(search_title, year=search_year)
                         tmdb_item = searches.results[0]
                     except TMDbException:
-                        rows.append(("", rating_str, title, "WARNING IGNORED: TMDb ID Not Found"))
-                        continue
+                        try:
+                            searches = tmdb.movie_search(search_title)
+                            tmdb_item = searches.results[0]
+                        except TMDbException:
+                            rows.append(("", rating_str, title, "WARNING IGNORED: TMDb ID Not Found"))
+                            continue
             tmdb_title = f"{tmdb_item.name} ({tmdb_item.release_date.year})"
             if tmdb_title == title:
                 tmdb_title = ""
