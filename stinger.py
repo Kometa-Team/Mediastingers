@@ -86,13 +86,17 @@ while url:
             rows.append((str(tmdb_item.id), rating_str, title, tmdb_title))
             data[tmdb_item.id] = rating
 
+data.save()
+
+if not rows:
+    logger.error("No stinger data was scraped. The website may be unavailable or the page structure has changed.")
+    sys.exit(1)
+
 headers = ["TMDb ID", "Rating", "MediaStinger Title", "Warning Message or TMDb Title When Different"]
 widths = []
 for i, header in enumerate(headers):
     _max = len(max(rows, key=lambda t: len(t[i]))[i])
     widths.append(_max if _max > len(header) else len(header))
-
-data.save()
 
 if [item.a_path for item in Repo(path=".").index.diff(None) if item.a_path.endswith(".yml")]:
 
